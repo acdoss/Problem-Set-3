@@ -1,7 +1,6 @@
 # Problem-Set-3
 
-Este repositorio contiene la implementación del Problem Set 3: Predicción de Pobreza Monetaria en Colombia, desarrollado en el marco del curso Big Data and Machine Learning (2025-2).
-
+Este proyecto desarrolla un modelo predictivo para estimar precios de propiedades en la localidad de Chapinero en Bogotá, Colombia. Utilizando datos de Properati y variables espaciales de OpenStreetMap, implementamos múltiples algoritmos de machine learning para optimizar las compras de propiedades minimizando el riesgo de sobrestimación.
 ## Estructura del Repositorio
 
 Una guía rápida para navegar el repositorio:
@@ -18,29 +17,38 @@ Este proyecto es el resultado del trabajo colaborativo. Las contribuciones susta
 
 
 ## Marlon Angulo Ramos
-1. Construcción e integración de las bases de hogares y personas desde la GEIH.
-2. Implementación de la ingeniería de variables enriquecida (más de 50 nuevas variables).
-3. Desarrollo del índice de vulnerabilidad y de los indicadores agregados por hogar.
-4. Participación en el diseño y análisis del modelo final XGBoost enriquecido.
+Extracción de datos de OpenStreetMap para Chapinero
+
+Desarrollo de modelos base: Linear Regression, Elastic Net, CART
+
+Engineering de variables espaciales (distancias y scores)
+
+Análisis de feature importance y selección de variables
 
 ## Martin Pinto Talero
+Optimización de hiperparámetros con Grid Search y Bayesian Optimization
 
-1. Desarrollo y entrenamiento de los modelos Regresión Logística, Naive Bayes y Elastic Net.
-2. Evaluación comparativa del desempeño y calibración de umbrales de clasificación.
-3. Implementación del modelo de ensamble y ajuste de métricas de precisión, recall y F1.
-4. Apoyo en la interpretación de resultados y discusión técnica.
+Desarrollo de XGBoost con regularización avanzada
+
+Implementación de Neural Networks para capturar no-linealidades
+
+Análisis comparativo de métricas de performance
 
 ## Elian Moreno Cuellar
+Desarrollo de Random Forest y ensemble methods
 
-1. Diseño, entrenamiento y optimización de los modelos Random Forest y XGBoost.
-2. Implementación de técnicas de regularización y anti–overfitting en el modelo final.
-3. Construcción de las tablas comparativas de desempeño y métricas del conjunto holdout.
-4. Coautor de la sección Resultados y Mejor Modelo del informe.
+Implementación de modelos alternativos y benchmarking
+
+Validación de resultados en conjunto de test
+
+Análisis de overfitting y técnicas de regularización
 
 ## Camilo Ávila Araque
+Procesamiento de datos y feature engineering con variables OSM
 
-1. Diseño conceptual y metodológico del flujo completo de modelado y validación.
-2. Implementación y documentación de la estrategia de balanceo y validación cruzada.
-3. Integración final de scripts, revisión de resultados y ajuste de la versión enviada a Kaggle.
-4. Redacción de la Introducción, Conclusiones y edición integral del documento en LaTeX.
+Desarrollo del pipeline de Super Learner con stacking ensemble
+
+Implementación de validación cruzada espacial para evitar overfitting
+
+Integración final de modelos y documentación en LaTeX
 
