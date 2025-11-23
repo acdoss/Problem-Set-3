@@ -1,6 +1,6 @@
-# Problem-Set-2
+# Problem-Set-3
 
-Este repositorio contiene la implementación del Problem Set 2: Predicción de Pobreza Monetaria en Colombia, desarrollado en el marco del curso Big Data and Machine Learning (2025-2).
+Este repositorio contiene la implementación del Problem Set 3: Predicción de Pobreza Monetaria en Colombia, desarrollado en el marco del curso Big Data and Machine Learning (2025-2).
 
 ## Estructura del Repositorio
 
