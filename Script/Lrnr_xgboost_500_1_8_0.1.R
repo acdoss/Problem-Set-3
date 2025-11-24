@@ -1,5 +1,5 @@
 # =============================================================================
-# CÓDIGO MAESTRO: PREDICCIÓN INMOBILIARIA BOGOTÁ (SUPER LEARNER + EDA)
+# CONFIGURACIÓN INICIAL
 # =============================================================================
 
 # 1. LIMPIEZA Y LIBRERÍAS ----------------------------------------------------
@@ -344,3 +344,4 @@ if(any(is.na(preds))) preds[is.na(preds)] <- mean(preds, na.rm=TRUE)
 
 write_csv(data.frame(property_id = test_processed$property_id, price = preds), "predicciones_finales_v5.csv")
 cat("✅ PROCESO COMPLETADO.\n")
+
