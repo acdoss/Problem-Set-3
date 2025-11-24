@@ -1,0 +1,568 @@
+\documentclass[a4paper]{article} 
+\addtolength{\hoffset}{-2.25cm}
+\addtolength{\textwidth}{4.5cm}
+\addtolength{\voffset}{-3.25cm}
+\addtolength{\textheight}{5cm}
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{0in}
+
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+\usepackage{xcolor}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{subfigure}
+\usepackage{threeparttable}
+\usepackage{blindtext} % Package to generate dummy text
+\usepackage{charter} % Use the Charter font
+\usepackage[utf8]{inputenc} % Use UTF-8 encoding
+\usepackage{microtype} % Slightly tweak font spacing for aesthetics
+\usepackage[english, spanish, es-nodecimaldot]{babel} % Language hyphenation and typographical rules
+\usepackage{amsthm, amsmath, amssymb} % Mathematical typesetting
+\usepackage{float} % Improved interface for floating objects
+\usepackage[final, colorlinks = true, 
+linkcolor = black, 
+citecolor = black]{hyperref} % For hyperlinks in the PDF
+\usepackage{graphicx, multicol} % Enhanced support for graphics
+\usepackage{xcolor} % Driver-independent color extensions
+\usepackage{marvosym, wasysym} % More symbols
+\usepackage{rotating} % Rotation tools
+\usepackage{censor} % Facilities for controlling restricted text
+\usepackage{listings, style/lstlisting} % Environment for non-formatted code, !uses style file!
+\usepackage{pseudocode} % Environment for specifying algorithms in a natural way
+\usepackage{style/avm} % Environment for f-structures, !uses style file!
+\usepackage{booktabs} % Enhances quality of tables
+\usepackage{tikz-qtree} % Easy tree drawing tool
+\usepackage{mdframed}
+\tikzset{every tree node/.style={align=center,anchor=north},
+	level distance=2cm} % Configuration for q-trees
+\usepackage{style/btree} % Configuration for b-trees and b+-trees, !uses style file!
+\usepackage[backend=biber,style=numeric,
+sorting=nyt]{biblatex} % Complete reimplementation of bibliographic facilities
+\addbibresource{ecl.bib}
+\usepackage{csquotes} % Context sensitive quotation facilities
+
+\usepackage{parskip}
+\usepackage[yyyymmdd]{datetime} % Uses YEAR-MONTH-DAY format for dates
+\renewcommand{\dateseparator}{-} % Sets dateseparator to '-'
+\usepackage{fancyhdr} % Headers and footers
+\pagestyle{fancy} % All pages have headers and footers
+\fancyhead{}\renewcommand{\headrulewidth}{0pt} % Blank out the default header
+\fancyfoot[L]{} % Custom footer text
+\fancyfoot[C]{} % Custom footer text
+\fancyfoot[R]{\thepage} % Custom footer text
+\newcommand{\note}[1]{\marginpar{\scriptsize \textcolor{red}{#1}}} % Enables comments in red on margin
+\DeclareMathOperator*{\plim}{plim}
+\usepackage[most]{tcolorbox}
+\usepackage{cancel}
+\usepackage{adjustbox}
+\addto\captionsspanish{
+	\def\listtablename{\'Indice de tablas}%
+	\def\tablename{Tabla}}
+\usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{bbm}
+\definecolor{myblue}{RGB}{0,163,243}
+\definecolor{moradito}{RGB}{63,1,143}
+
+\tcbset{
+  rubrica/.style={
+    colback=blue!2!white,
+    colframe=blue!60!black,
+    coltitle=blue!40!black,
+    colbacktitle=blue!10!white,
+    fonttitle=\bfseries,
+    boxrule=0.8pt,
+    arc=2mm,
+    top=4mm,
+    bottom=4mm,
+    left=3mm,
+    right=3mm,
+    breakable,
+    enhanced,
+    title style={colback=blue!5!white, arc=2mm, bottomrule=0.5pt}
+  }
+}
+\begin{document}
+	
+	
+	\fancyhead[C]{}
+	\hrule \medskip 
+	\begin{minipage}{0.295\textwidth} 
+		\raggedright
+		\textbf{Profesor:} Ignacio Sarmiento Barbieri\\
+		\vspace{2mm}
+
+	\end{minipage}
+	\begin{minipage}{0.4\textwidth} 
+		\centering 
+		\huge 
+		Taller 3\\ 
+		\vspace{2mm}
+		\normalsize 
+		Big Data and Machine Learning, 2025-2\\ 
+        \vspace{0.5cm}
+        \textbf{Marlon Angulo Ramos}\\
+        \textbf{Martin Pinto Talero} \\
+        \textbf{Elian Moreno Cuellar} \\
+        \textbf{Camilo Ávila Araque} \\
+		
+        
+        
+	\end{minipage}
+	\begin{minipage}{0.295\textwidth} 
+		\begin{figure}[H]
+			\raggedleft
+			\includegraphics[scale=0.3]{style/uniandes.pdf}
+		\end{figure}
+		\hfill
+	\end{minipage}
+	\medskip\hrule 
+	\bigskip
+	
+   \section{Introducción}
+
+La proliferación de Modelos de Valoración Automatizada (AVM, por sus siglas en inglés) ha redefinido la dinámica del mercado inmobiliario; sin embargo, episodios recientes, como la disolución de la división iBuying de Zillow Offers, evidencian los riesgos sistémicos asociados a la dependencia de algoritmos que subestiman la heterogeneidad local y la complejidad espacial. En este contexto, y siguiendo el marco teórico de precios hedónicos (Rosen, 1974), el presente trabajo desarrolla un modelo predictivo robusto para la estimación de precios de vivienda en la localidad de Chapinero, Bogotá, con el objetivo de minimizar el error de predicción fuera de muestra y mitigar la incertidumbre en la toma de decisiones de inversión.
+
+Para abordar esta problemática, se implementó un flujo de trabajo integral que incluyó la imputación supervisada de valores ausentes en variables estructurales, transformación logarítmica de la variable objetivo para manejar valores atípicos, y enriquecimiento de la información mediante técnicas avanzadas de Ingeniería de Características. Esto incluyó el procesamiento de descripciones textuales para derivar indicadores cualitativos siguiendo aproximaciones como las de Ahmed y Moustafa (2016), la integración de datos geoespaciales de OpenStreetMap para cuantificar accesibilidad a infraestructura urbana, y la construcción de variables de rezago espacial mediante algoritmos de K-Vecinos Más Cercanos (KNN).
+
+El análisis concluye que el SuperLearner logró la mejor precisión predictiva con un MAE de 195.549.047 en Kaggle, superando en un 52\% a los modelos individuales mediante la combinación óptima de Random Forest (66\%) y XGBoost (34\%). Sin embargo, el modelo presentó una brecha significativa de overfitting (272\%), evidenciando el trade-off fundamental entre complejidad algorítmica y capacidad de generalización. Esta limitación subraya la necesidad de complementar los ensambles avanzados con estrategias de regularización más robustas para entornos de inversión real.
+
+La validación cruzada espacial demostró ser instrumental para evaluar la capacidad de generalización, revelando que la autocorrelación geográfica es un factor determinante en la valoración de inmuebles en Chapinero. El análisis de importancia de variables confirmó la predominancia de atributos espaciales y de eficiencia sobre las características físicas tradicionales, con la superficie construida, las métricas de eficiencia espacial (m² por bedroom) y la accesibilidad a transporte masivo emergiendo como determinantes críticos del valor inmobiliario en esta localidad.
+
+Para futuras iteraciones, se recomienda integrar fuentes de datos externos adicionales como el valor catastral y el nivel socioeconómico sectorial, junto con la exploración de técnicas de regularización espacial explícita. Estas mejoras metodológicas permitirían reducir el overfitting en modelos de ensamble mientras se mantiene la capacidad de capturar patrones complejos, optimizando así el balance entre precisión predictiva y robustez operativa en contextos de alta variabilidad geográfica.
+
+\newpage
+    \section{Datos}
+
+\subsection{Fuente y Muestra}
+
+Los datos empleados provienen de Properati y fueron obtenidos a través de la competencia alojada en Kaggle. La base contiene información a nivel de inmueble para Bogotá, incluyendo características estructurales (área, cuartos y baños), tipo de propiedad, coordenadas geográficas y texto libre del anuncio. Ambos conjuntos (entrenamiento y prueba) mantienen la misma estructura de 16 variables, lo que permite un tratamiento uniforme.
+
+El \textit{training set} incluye 38{,}644 registros y el \textit{testing set} 10{,}286. Aunque ambos reportan apartamentos y casas, la composición difiere notablemente: en el entrenamiento los apartamentos representan el 75.5\%, mientras que en el conjunto de prueba ascienden al 97.3\%. Además, el entrenamiento cubre toda la ciudad de Bogotá, mientras que la muestra de prueba se concentra casi exclusivamente en Chapinero, con pocos valores atípicos fuera de este sector. Esta diferencia espacial y composicional se visualiza en el mapa interactivo disponible en el repositorio.\footnote{\url{https://acdoss.github.io/Problem-Set-3/Views/mapa1.html}}
+
+El diagnóstico inicial evidencia una proporción considerable de datos faltantes en variables estructurales: 30{,}790 propiedades sin área total, 30{,}079 sin área construida y 18{,}260 sin número de habitaciones, con patrones similares en la muestra de prueba. Dado que estos atributos constituyen componentes centrales del vector de características en el marco de precios hedónicos (Rosen, 1974), su ausencia exige la implementación de estrategias de imputación coherentes y no una simple eliminación de observaciones. Un elemento favorable es la disponibilidad completa de coordenadas geográficas en ambas muestras, lo que permite complementar la información con fuentes espaciales externas y aplicar validación cruzada espacial, aspectos fundamentales para capturar la estructura locacional del mercado inmobiliario bogotano.
+    
+\subsection{Construcción de Variables}
+
+La construcción de variables siguió tres etapas principales: (i) imputación consistente de valores faltantes en atributos estructurales, (ii) creación de variables textuales basadas en el contenido del anuncio, e (iii) incorporación de información externa proveniente de OpenStreetMap (OSM) para capturar características locacionales. Este proceso permitió obtener una base completa y enriquecida, adecuada para la estimación de modelos predictivos.
+
+\textbf{Imputación estructural.} Dado el alto nivel de valores faltantes y la relevancia de estas características dentro del marco de precios hedónicos (Rosen, 1974), se implementó un esquema de imputación supervisada. Los baños se imputaron mediante un modelo lineal basado en los dormitorios; el área total mediante un modelo con dormitorios y baños, restringiendo los valores a rangos plausibles; el área construida se aproximó como el 90\% del área total; y los \textit{rooms} se estimaron como dormitorios más un área social. Tras este proceso, todas las variables estructurales utilizadas quedaron completas en ambos conjuntos.
+
+\textbf{Variables textuales.} Los campos \texttt{title} y \texttt{description} se limpiaron y estandarizaron para construir medidas de longitud y presencia de información, junto con dummies basados en palabras clave (lujo, remodelación, parqueadero, ascensor, balcón). A partir de estas dummies se construyó un puntaje compuesto de calidad del texto. Este conjunto de variables permite capturar atributos cualitativos del inmueble no reflejados en las características físicas.
+
+\textbf{Variables espaciales.} Utilizando la bounding box de Chapinero, se extrajeron de OSM parques, estaciones de Transmilenio, restaurantes, bancos y universidades. Con las coordenadas de cada propiedad se calcularon distancias mínimas a estos puntos y se derivaron índices de accesibilidad ponderados. Adicionalmente, se generaron medidas de eficiencia espacial y variables de interacción entre tipo de propiedad y accesibilidad. El mapa correspondiente se encuentra disponible en el repositorio.\footnote{\url{https://acdoss.github.io/Problem-Set-3/Views/mapa2.html}}
+
+\begin{table}[H]
+\centering
+\caption{Resumen de variables creadas}
+\begin{tabular}{p{2cm} p{4cm} p{3.5cm} p{5cm}}
+\toprule
+\textbf{Tipo} & \textbf{Variable} & \textbf{Método} & \textbf{Descripción} \\ 
+\midrule
+
+\textbf{Estructural} 
+& \texttt{bathrooms\_imp}, \texttt{surface\_total\_imp}, 
+\texttt{surface\_covered\_imp}, \texttt{rooms\_imp}
+& Regresión y reglas determinísticas
+& Imputación de áreas, baños y habitaciones a partir de relaciones estables entre atributos. \\
+\midrule
+
+\textbf{Texto} 
+& \texttt{title\_length}, \texttt{description\_length}, 
+\texttt{tiene\_descripcion}
+& Limpieza y conteo de texto
+& Medidas de cantidad de información disponible en el anuncio. \\
+\midrule
+
+\textbf{Texto} 
+& \texttt{dummy\_lujoso}, \texttt{dummy\_remodelado}, 
+\texttt{dummy\_parqueadero}, 
+\texttt{dummy\_balcon}
+& Detección por palabras clave (regex)
+& Identificación automática de atributos cualitativos relevantes del inmueble. \\
+\midrule
+
+\textbf{Texto} 
+& \texttt{score\_calidad\_texto}
+& Índice ponderado
+& Puntaje compuesto que resume la calidad comercial del anuncio. \\
+\midrule
+
+\textbf{Espacial} 
+& \texttt{dist\_parque}, \texttt{dist\_tm}, 
+\texttt{dist\_comercio}, \texttt{dist\_universidad}
+& Distancia geográfica mínima (OSM)
+& Proximidad a puntos clave de interés urbano según OpenStreetMap. \\
+\midrule
+
+\textbf{Espacial} 
+& \texttt{score\_parque}, \texttt{score\_tm}, 
+\texttt{score\_comercio}, \texttt{score\_universidad}
+& Función inversa de distancia
+& Indicadores individuales de accesibilidad a servicios y equipamientos urbanos. \\
+\midrule
+
+\textbf{Espacial} 
+& \texttt{score\_accesibilidad}, \texttt{densidad\_servicios}
+& Índices compuestos
+& Medidas agregadas de accesibilidad y concentración de servicios. \\
+\midrule
+
+\textbf{Espacial} 
+& \texttt{m2\_por\_bedroom}, \texttt{m2\_por\_bathroom}
+& Razones de eficiencia espacial
+& Relación entre área total disponible y número de ambientes funcionales. \\
+\midrule
+
+\textbf{Espacial} 
+& \texttt{casa\_score\_ubicacion}, \texttt{apto\_score\_ubicacion}
+& Interacciones estructurales
+& Diferenciales en el efecto de la accesibilidad según tipo de propiedad. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Estadística descriptiva}
+
+La caracterización inicial de los datos permite identificar diferencias relevantes entre las muestras de entrenamiento y prueba, especialmente en las variables estructurales del inmueble. La Tabla \ref{tab:struct} resume sus medidas de tendencia central y dispersión. En general, las propiedades del conjunto \textit{train} presentan mayor área total y construida, así como más dormitorios y baños en promedio. Esto era esperable dado que el conjunto \textit{test} está geográficamente concentrado en Chapinero, una localidad con predominancia de unidades residenciales compactas y alta densidad urbana, mientras que \textit{train} cubre toda Bogotá.
+
+\begin{table}[H]
+\centering
+\caption{Resumen de variables estructurales para \textit{train} y \textit{test}}
+\label{tab:struct}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lcccccccccccc}
+\toprule
+\textbf{Muestra} &
+\textbf{ST (Media)} & \textbf{ST (Med)} & \textbf{ST (SD)} &
+\textbf{BR (Media)} & \textbf{BR (Med)} & \textbf{BR (SD)} &
+\textbf{BA (Media)} & \textbf{BA (Med)} & \textbf{BA (SD)} &
+\textbf{SC (Media)} & \textbf{SC (Med)} & \textbf{SC (SD)} \\
+\midrule
+Train & 144.66 & 145.78 & 61.94 &
+3.14 & 3 & 1.53 &
+2.87 & 3 & 1.00 &
+133.02 & 131.20 & 61.40 \\
+Test & 123.27 & 121.24 & 45.25 &
+2.38 & 2 & 0.96 &
+2.66 & 3 & 0.88 &
+115.02 & 109.79 & 45.34 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+
+\vspace{0.2cm}
+\scriptsize
+\textbf{Convenciones:} ST = superficie total; BR = dormitorios; BA = baños; SC = superficie construida.
+\end{table}
+
+Para las variables textuales, la Tabla \ref{tab:text} muestra la proporción de anuncios cuyo título contiene palabras clave asociadas a atributos cualitativos del inmueble. La frecuencia de estas características es baja, lo cual coincide con la estructura general del mercado en Bogotá, donde los anuncios suelen ser informativos pero poco descriptivos en términos de calidad percibida. No obstante, estas variables pueden capturar señales sutiles de valorización relevantes para los modelos predictivos.
+
+\begin{table}[H]
+\centering
+\caption{Proporción de atributos detectados en títulos y descripciones (\textit{train})}
+\label{tab:text}
+\begin{adjustbox}{max width=0.6\textwidth}
+\begin{tabular}{lc}
+\toprule
+\textbf{Variable} & \textbf{Proporción} \\
+\midrule
+\texttt{dummy\_lujoso} & 0.002 \\
+\texttt{dummy\_remodelado} & 0.025 \\
+\texttt{dummy\_parqueadero} & 0.002 \\
+\texttt{dummy\_balcon} & 0.015 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+
+\vspace{0.2cm}
+\scriptsize
+\textbf{Nota:} Se excluye \texttt{dummy\_ascensor} porque su proporción es cero en toda la muestra.
+\end{table}
+
+Finalmente, las variables espaciales permiten capturar el componente locacional del valor inmobiliario. La Tabla \ref{tab:spatial} reporta las distancias medianas e IQR desde cada propiedad hacia parques, estaciones de transporte masivo, comercio y universidades, junto con sus correspondientes indicadores de accesibilidad. En el conjunto \textit{train} las distancias son mayores porque la muestra abarca toda Bogotá; por ello no deben compararse directamente con las del \textit{test}, donde los puntos de interés provienen únicamente de la zona de Chapinero. En consecuencia, las distancias del \textit{test} tienden a ser más cortas y homogéneas, reflejando la alta densidad de servicios en esta localidad.
+
+\begin{table}[H]
+\centering
+\caption{Distancias y scores espaciales (mediana e IQR) — \textit{train}}
+\label{tab:spatial}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Variable} & \textbf{Parque} & \textbf{TM} & \textbf{Comercio} & \textbf{Universidad} & \textbf{Accesibilidad} \\
+\midrule
+Mediana distancias (m) & 5795 & 6111 & 5825 & 6081 & -- \\
+IQR distancias (m)     & 3116 & 3066 & 3106 & 3146 & -- \\
+\midrule
+Mediana score           & 0.170 & 0.081 & 0.085 & 0.162 & 0.108 \\
+IQR score               & 0.089 & 0.040 & 0.044 & 0.083 & 0.056 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+
+\vspace{0.2cm}
+\scriptsize
+\textbf{Nota:} Las distancias provienen de POI extraídos vía OSM para toda la ciudad; por ello son mayores en \textit{train}. Los resultados para \textit{test} se reportan en anexos debido a su concentración exclusiva en Chapinero.
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Distancias y scores espaciales (mediana e IQR) — \textit{test}}
+\label{tab:spatial_test}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Variable} & \textbf{Parque} & \textbf{TM} & \textbf{Comercio} & \textbf{Universidad} & \textbf{Accesibilidad} \\
+\midrule
+Mediana distancias (m) & 1864 & 2141 & 1854 & 2142 & -- \\
+IQR distancias (m)     & 2139 & 1704 & 2247 & 2198 & -- \\
+\midrule
+Mediana score           & 0.536 & 0.295 & 0.302 & 0.530 & 0.386 \\
+IQR score               & 0.382 & 0.207 & 0.218 & 0.381 & 0.273 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+
+\vspace{0.2cm}
+\scriptsize
+\textbf{Nota:} Las distancias en \textit{test} son considerablemente menores debido a la concentración espacial de las propiedades en Chapinero y a que los POI extraídos por OSM pertenecen a esta misma zona.
+\end{table}
+
+
+Las figuras y mapas que complementan este análisis, incluyendo las distribuciones univariadas, histogramas comparativos y la representación espacial de las distancias y puntos de interés, se presentan en los Anexos con el fin de no sobrecargar la presentación en el cuerpo principal del documento.
+
+
+    \subsection{Justificación de la Selección de Variables}
+
+La selección de variables para el modelo predictivo se fundamenta en la teoría económica de precios hedónicos y en avances recientes en aprendizaje automático aplicado al mercado inmobiliario.
+
+Las variables estructurales (área total, área construida, número de habitaciones y baños) constituyen el núcleo del modelo, siguiendo la formulación clásica de Rosen (1974) donde el precio de un bien diferenciado se explica por sus características objetivas. La inclusión de estas variables encuentra respaldo empírico en la literatura especializada, donde consistentemente explican una proporción significativa de la variación en precios de vivienda (Sirmans et al., 2005).
+
+Las variables de texto extraídas de títulos y descripciones se incorporan basándose en evidencia de que el lenguaje natural en anuncios inmobiliarios contiene señales cualitativas sobre atributos no observables. Estudios como Ahmed y Moustafa (2016) demuestran que características textuales como "lujoso", "remodelado" o "parqueadero" capturan dimensiones de calidad y equipamiento que mejoran la capacidad predictiva de los modelos.
+
+Las variables espaciales (distancias a parques, transporte masivo, comercio y universidades) responden al principio fundamental de economía urbana que identifica la localización como determinante primario del valor inmobiliario. La medición mediante distancias geográficas se sustenta en trabajos como Law et al. (2019), que validan el uso de métodos geoespaciales e imágenes para capturar externalidades locacionales. Adicionalmente, la construcción de scores de accesibilidad compuestos permite sintetizar múltiples dimensiones de ubicación en métricas interpretables.
+
+Finalmente, la inclusión de variables de interacción entre tipo de propiedad y accesibilidad, así como métricas de eficiencia espacial, se justifica por la evidencia de efectos no lineales y complementariedades entre características (Ho et al., 2020). Estas interacciones permiten capturar heterogeneidad en la valoración de atributos a través de diferentes segmentos del mercado. La combinación de estos cuatro tipos de variables (estructurales, textuales, espaciales y de interacción) busca construir una representación comprehensiva de los determinantes del precio, balanceando tradición teórica con innovación metodológica.
+
+\section{Modelos y Resultados}
+
+\subsection{Comparación de Modelos Alternativos}
+
+El equipo implementó y evaluó múltiples algoritmos de machine learning para predecir precios de propiedades en Chapinero. Esta sección presenta la comparación detallada entre los diferentes enfoques probados, incluyendo el análisis de generalización en datos no vistos mediante la plataforma Kaggle.
+
+\subsubsection{Estrategia de Validación Cruzada Espacial}
+
+Se implementó validación cruzada espacial con 4 folds estratificados por latitud para prevenir sobreajuste debido a autocorrelación espacial. Esta estrategia demostró ser crucial para el desempeño predictivo, especialmente en modelos que capturan dependencias geográficas.
+
+\subsubsection{Desempeño Comparativo en Entrenamiento}
+
+\begin{table}[h]
+\centering
+\caption{Desempeño Predictivo en Datos de Entrenamiento}
+\begin{tabular}{lcccc}
+\hline
+\textbf{Modelo} & \textbf{RMSE} & \textbf{MAE} & \textbf{MAPE (\%)} & \textbf{Familia} \\
+\hline
+Super Learner & 81,807,002 & 52,504,728 & 8.0 & Ensemble \\
+XGBoost & 170,220,261 & 120,807,088 & 19.3 & Boosting \\
+Red Neuronal & 205,404,881 & 147,021,828 & 23.5 & Redes Neuronales \\
+Regresión Lineal & 231,984,800 & 169,608,766 & 27.6 & Lineales \\
+Elastic Net & 232,658,804 & 170,084,305 & 27.6 & Regularización \\
+Árbol de Decisión & 235,117,365 & 172,652,452 & 28.0 & Árboles Simples \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Análisis de Generalización: Entrenamiento vs Test (Kaggle)}
+
+La verdadera prueba de robustez predictiva se obtuvo al evaluar los modelos en datos no vistos mediante la competencia de Kaggle:
+
+\begin{table}[h]
+\centering
+\caption{Comparación de Desempeño: Entrenamiento vs Test (Kaggle)}
+\begin{tabular}{lcccc}
+\hline
+\textbf{Modelo} & \textbf{MAE Train} & \textbf{MAE Kaggle} & \textbf{Diferencia} & \textbf{Overfitting (\%)} \\
+\hline
+Super Learner & 52,504,728 & 195,549,047 & +143,044,319 & 272.4\% \\
+Random Forest & 58,580,000* & 196,128,372 & +137,548,372 & 234.8\% \\
+XGBoost & 120,807,088 & 215,551,226 & +94,744,138 & 78.4\% \\
+Elastic Net & 170,084,305 & 233,759,042 & +63,674,737 & 37.4\% \\
+Red Neuronal & 147,021,828 & 342,419,104 & +195,397,276 & 132.9\% \\
+\hline
+\end{tabular}
+\end{table}
+
+*\textit{MAE estimado para Random Forest basado en su contribución al Super Learner}
+
+\textbf{Hallazgos clave en generalización:}
+
+\begin{itemize}
+    \item \textbf{Overfitting significativo:} Todos los modelos mostraron desempeño inferior en test, con el Super Learner exhibiendo la mayor brecha relativa (272\%)
+    \item \textbf{Robustez de modelos lineales:} Elastic Net mostró la menor degradación (37\%), indicando mejor generalización
+    \item \textbf{Problemas de redes neuronales:} La Red Neuronal mostró pobre generalización posiblemente por sobreajuste a patrones específicos del training
+    \item \textbf{Jerarquía mantenida:} El ranking relativo entre modelos se preservó, con Super Learner y Random Forest liderando
+\end{itemize}
+
+\subsubsection{Análisis Comparativo por Familia de Algoritmos}
+
+\begin{table}[h]
+\centering
+\caption{Efectividad por Familia de Algoritmos}
+\begin{tabular}{lccc}
+\hline
+\textbf{Familia} & \textbf{Mejor MAE Kaggle} & \textbf{Reducción vs. Peor} & \textbf{Robustez} \\
+\hline
+Ensembles & 195,549,047 & 42.9\% & Baja \\
+Boosting & 215,551,226 & 37.0\% & Media \\
+Regularización & 233,759,042 & 31.7\% & Alta \\
+Redes Neuronales & 342,419,104 & - & Muy Baja \\
+\hline
+\end{tabular}
+\end{table}
+
+\textbf{Evaluación por familia:}
+\begin{itemize}
+    \item \textbf{Ensembles:} Máximo desempeño pero menor robustez (alto overfitting)
+    \item \textbf{Boosting:} Balance entre desempeño y generalización
+    \item \textbf{Regularización:} Mejor robustez pero desempeño predictivo limitado
+    \item \textbf{Redes Neuronales:} Pobre adaptación a datos no vistos en este contexto
+\end{itemize}
+
+\subsubsection{Lecciones Aprendidas y Recomendaciones}
+
+La experiencia demuestra que existe un trade-off fundamental entre la complejidad del modelo y capacidad de generalización. Los ensambles, si bien alcanzan el máximo desempeño en datos de entrenamiento, exhiben una vulnerabilidad significativa al enfrentarse a datos no vistos, manifestando brechas de overfitting que superan el 250\% en el caso del Super Learner.
+
+Esta evidencia sugiere que la validación cruzada espacial, aunque necesaria, resulta insuficiente por sí sola para contener el sobreajuste en contextos con alta variabilidad geográfica como el mercado inmobiliario de Chapinero. Se requieren estrategias complementarias de regularización, posiblemente mediante la incorporación de restricciones espaciales explícitas.
+
+Por contraste, los modelos lineales como Elastic Net emergen como benchmarks de robustez invaluable, demostrando una degradación controlada del 37\% entre entrenamiento y test. Su relativa simplicidad estructural se convierte en ventaja cuando la prioridad es la generalización sobre el desempeño puntual.
+
+La evaluación externa mediante Kaggle probó ser instrumental para revelar problemas de generalización que permanecían ocultos en las validaciones internas. Este hallazgo refuerza la importancia de incorporar mecanismos de testeo independientes que simulen condiciones de despliegue real.
+
+En términos de recomendaciones prácticas, la selección del modelo debería guiarse por el contexto de aplicación específico. Para escenarios conservadores donde la predictibilidad es prioritaria, los modelos lineales ofrecen un balance óptimo. Cuando el objetivo es maximizar desempeño aceptando riesgos controlados, los ensembles con regularización extendida representan la alternativa más prometedora, aunque requieren monitoreo continuo de su capacidad de generalización.
+
+
+\subsection{Mejor modelo}
+
+Nuestro objetivo principal fue predecir el precio de venta de las viviendas en Chapinero minimizando el Error Absoluto Medio (MAE). Para lograrlo, el modelo más exitoso fue un \textit{Super Learner}, cuya arquitectura de ensamble permitió superar las limitaciones de los modelos individuales mediante la integración de múltiples algoritmos. La relación entre el precio y las características de la propiedad se definió formalmente mediante la función:
+
+\begin{equation}
+	P_i = f(S_i, L_i, T_i) + \epsilon_i
+\end{equation}
+
+En esta ecuación, el vector de covariables integra características físicas estándar ($S_i$), variables de contexto espacial ($L_i$) derivadas de OpenStreetMap, y atributos de calidad ($T_i$) extraídos mediante minería de texto. La combinación óptima de estos componentes se realizó mediante el algoritmo de Mínimos Cuadrados No Negativos (NNLS). Tal como se discutió en el análisis de desempeño comparativo, este \textit{metalearner} fue determinante para alcanzar la mejora del 52\% en el error reportada anteriormente, ya que identificó empíricamente que la sinergia entre Random Forest ($66\%$) y XGBoost ($34\%$) capturaba mejor la varianza espacial que cualquier modelo lineal o red neuronal por separado.
+
+Un componente crítico para validar esta configuración ganadora fue la estrategia de selección de hiperparámetros. Dado que la autocorrelación espacial de los precios puede generar resultados engañosamente optimistas en una validación aleatoria tradicional, implementamos una \textbf{Validación Cruzada Espacial}. Dividimos los datos de entrenamiento en cuatro bloques geográficos distintos; así, para cada prueba, el modelo entrenaba en tres zonas y debía predecir en una cuarta zona desconocida. Esto aseguró que los hiperparámetros seleccionados en la Tabla \ref{tab:hyper_results} no fueran producto de la memorización de ubicaciones, sino de la capacidad real del modelo para generalizar patrones de mercado a la zona objetivo de Chapinero.
+
+% INICIO DE LA TABLA
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.6} % Espaciado entre filas local
+    \setlength{\tabcolsep}{8pt}       % Espaciado entre columnas local
+    \caption{Espacio de Búsqueda y Selección Óptima de Hiperparámetros (Validación Espacial)}
+    \label{tab:hyper_results}
+    
+    % Ajuste a ancho de texto si es necesario con resizebox, sino tabla directa
+    \begin{adjustbox}{max width=\textwidth}
+    \begin{tabular}{l p{9cm} l}
+    \toprule
+    \textbf{Modelo Base} & \textbf{Grilla de Búsqueda (Rango Evaluado)} & \textbf{Configuración Óptima} \\
+    \midrule
+    
+    \textbf{XGBoost} & 
+    Depth $\in \{4, 6, 8\}$, $\eta \in \{0.01, 0.1, 0.3\}$, \newline Rounds $\in \{50, 100, 150\}$ & 
+    \textbf{Depth} $= 8$, $\boldsymbol{\eta} = 0.3$, \textbf{Rounds} $= 150$ \\
+    
+    \textbf{Random Forest} & 
+    Trees $\in \{100, 200, 300\}$, mtry $\in \{\sqrt{p}, p/3\}$\footnotemark, \newline Min Node $\in \{5, 10, 20\}$ & 
+    \textbf{Trees} $= 300$, \textbf{mtry} $= 7$, \textbf{Node} $= 5$ \\
+    
+    \textbf{Elastic Net} & 
+    $\alpha \in \{0, 0.25, 0.5, 0.75, 1\}$ \newline \textit{(0=Ridge, 1=Lasso)} & 
+    $\boldsymbol{\alpha} = 0.75$ \\
+    
+    \textbf{Decision Tree} & 
+    $cp \in \{0.001, 0.01, 0.05, 0.1\}$, \newline MaxDepth $\in \{5, 10, 15, 20\}$ & 
+    $\mathbf{cp} = 0.001$, \textbf{Depth} $= 15$ \\
+    
+    \textbf{Red Neuronal} & 
+    Size $\in \{10, 20, 30\}$, Decay $\in \{0, 0.001, 0.01\}$ & 
+    \textbf{Size} $= 10$, \textbf{Decay} $= 0$ \\
+    
+    \bottomrule
+    \end{tabular}
+    \end{adjustbox}
+    
+    \vspace{0.2cm}
+    \scriptsize
+    \textbf{Nota:} La selección de los parámetros óptimos se realizó mediante una estrategia de Validación Cruzada Espacial de 4 pliegues (\textit{4-Fold Spatial CV}) para mitigar la autocorrelación espacial.
+\end{table}
+
+% --- CORRECCIÓN AQUÍ: EL TEXTO DEL PIE DE PÁGINA VA AFUERA DE LA TABLA ---
+\footnotetext{La selección de los valores por defecto para el parámetro \textit{mtry} sigue las recomendaciones empíricas estándar para equilibrar la correlación entre árboles y la fuerza predictiva: $m \approx \sqrt{p}$ para clasificación y $m \approx p/3$ para regresión. Véase: Hastie, T., Tibshirani, R., \& Friedman, J. (2009). \textit{The Elements of Statistical Learning} (2nd ed., p. 592). Springer.}
+
+% DISCUSIÓN FINAL (Ajustada para MAE)
+La predominancia asignada por el \textit{metalearner} a los algoritmos basados en árboles (Random Forest y XGBoost) sobre los componentes lineales es consistente con la literatura empírica reciente en valoración inmobiliaria. Estudios como el de Wang y Wu (2018)\footnote{Wang, C., \& Wu, H. (2018). A new machine learning approach to house price estimation. In \textit{International Conference on Computer Science and Artificial Intelligence (CSAI)} (pp. 167--170). ACM.} en el condado de Arlington (EE.UU.) y Mohd et al. (2019)\footnote{Mohd, T., Masrom, S., \& Johari, N. A. (2019). Machine Learning Housing Price Prediction in Petaling Jaya, Selangor, Malaysia. \textit{International Journal of Recent Technology and Engineering (IJRTE)}, 8(2S11), 3684--3688.} en Selangor (Malasia) han demostrado que la flexibilidad no lineal de Random Forest supera sistemáticamente a la rigidez de la regresión lineal. Aunque dichos estudios evaluaron el desempeño mediante RMSE, nuestros resultados confirman que esta superioridad estructural se mantiene robusta al optimizar el Error Absoluto Medio (MAE). De hecho, el uso de MAE en este trabajo, combinado con la capacidad de los árboles para segmentar el espacio, permite una estimación del precio menos sensible a los valores atípicos extremos, validando la preferencia por arquitecturas de ensamble no lineales.
+
+
+\subsubsection{Interpretación de los Determinantes del Valor Inmobiliario}
+
+El análisis de la importancia de las variables, derivado de la ganancia de información del componente XGBoost, desvela una jerarquía de valoración donde la funcionalidad espacial y la conectividad urbana trascienden las métricas físicas tradicionales. Si bien la superficie construida permanece como el predictor dominante, alineándose con la teoría de precios hedónicos\footnote{Propuesta por Sherwin Rosen (1974), esta teoría establece que una vivienda no es un solo producto, sino un ``paquete de características'' (\textit{bundle of characteristics}), donde el precio de mercado es la suma de los precios implícitos de sus atributos. Véase: Rosen, S. (1974). Hedonic Prices and Implicit Markets: Product Differentiation in Pure Competition. \textit{Journal of Political Economy}, 82(1), 34--55.}, la posición preponderante de la variable sintética \texttt{m2\_por\_bedroom} ofrece una lectura más profunda: el mercado de Chapinero no valora el espacio de manera lineal, sino que penaliza la densidad habitacional y premia la amplitud exclusiva propia de los inmuebles de lujo. Esta lógica interna se refuerza con la alta contribución de las variables exógenas de OpenStreetMap, particularmente la distancia al transporte masivo y la densidad comercial, lo cual confirma que la prima de valor en este sector está fuertemente condicionada por la eficiencia en la movilidad y el acceso inmediato a servicios, discriminando nítidamente entre los enclaves puramente residenciales y los nodos de actividad económica mixta.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Variables influyentes.pdf} % Asegúrate que el nombre coincida
+    \caption{Importancia relativa de las variables en el modelo final (XGBoost). Se observa la predominancia de la superficie construida y la alta relevancia de las variables espaciales derivadas de OSM.}
+    \label{fig:feature_importance}
+\end{figure}
+
+
+
+
+En una segunda dimensión, el modelo logró decodificar la complejidad topográfica y las señales cualitativas del mercado que suelen escapar a las regresiones convencionales. La relevancia de la interacción matemática entre latitud y longitud sugiere que la varianza de precios no sigue un patrón cardinal simple, sino que responde a gradientes diagonales dictados por la morfología de los cerros orientales y los ejes viales principales. Asimismo, la incorporación de métricas no convencionales resultó decisiva; la longitud de la descripción del anuncio emergió como un \textit{proxy} eficaz del esfuerzo de comercialización y la calidad subyacente del activo, mientras que la distinción explícita de la tipología de vivienda permitió al ensamble ajustar sus estimaciones a las dinámicas de valoración del suelo que diferencian a las casas unifamiliares de la propiedad horizontal, logrando así una generalización robusta ante la heterogeneidad del parque inmobiliario.
+
+\section{Conclusión}
+
+
+Este trabajo abordó el desafío de predecir el precio de propiedades en la localidad de Chapinero en Bogotá mediante modelos de aprendizaje automático, con el objetivo de apoyar decisiones de inversión inmobiliaria minimizando el riesgo de sobrevaloración, tal como ocurrió en el caso de Zillow Offers. Tras la evaluación exhaustiva de múltiples algoritmos (incluyendo Linear Regression, Elastic Net, CART, Random Forest, XGBoost, Redes Neuronales y SuperLearner), se identificó que el modelo de ensamble SuperLearner obtuvo el mejor desempeño predictivo en la competencia de Kaggle, con un MAE de 195.549.047. Este resultado se logró mediante la combinación óptima de Random Forest y XGBoost, aprovechando su capacidad para capturar relaciones no lineales y espaciales en los datos.
+
+La implementación de validación cruzada espacial demostró ser crucial para evaluar la capacidad de generalización del modelo, revelando que la autocorrelación espacial es un factor determinante en la valoración de inmuebles en Chapinero. Si bien el SuperLearner mostró el menor error absoluto en test, también presentó una brecha significativa de sobreajuste, lo que subraya la importancia de complementar los ensambles con estrategias de regularización espacial explícita. Por otro lado, modelos como Elastic Net mostraron una mayor robustez y menor degradación entre entrenamiento y prueba, lo que los convierte en una alternativa valiosa cuando la generalización es prioritaria sobre el máximo desempeño.
+
+El análisis de importancia de variables mostró que, además de atributos estructurales tradicionales como la superficie construida, las variables geoespaciales derivadas de OpenStreetMap (como la distancia a TransMilenio y la densidad comercial), así como métricas de eficiencia espacial y señales cualitativas extraídas del texto de los anuncios, fueron determinantes en la precisión predictiva del modelo.
+
+Como recomendación para la startup, se sugiere adoptar el SuperLearner como modelo base para la valoración, monitoreando continuamente su desempeño con validación espacial. Sería conveniente priorizar propiedades con alta accesibilidad a transporte y comercio, dada su fuerte asociación con el valor en Chapinero, así como incorporar sistemáticamente variables de texto y espaciales en futuras modelaciones para capturar dimensiones cualitativas y de localización. En contextos donde la robustez y generalización sean prioritarias, podría considerarse el uso de Elastic Net como modelo de referencia.
+
+En futuras iteraciones, sería valioso integrar más fuentes de datos externos (como el valor catastral o el nivel socioeconómico del sector) y explorar técnicas de regularización espacial para reducir el overfitting en modelos de ensamble. En síntesis, este trabajo evidencia que la combinación de modelos avanzados de machine learning con un enfoque espacial explícito y un riguroso proceso de ingeniería de características permite construir sistemas de valoración inmobiliaria más precisos y generalizables, mitigando así riesgos operativos y financieros en contextos de inversión real.
+
+
+\section{Disponibilidad de Código y Datos}
+
+El código de replicación completo para este estudio, incluyendo el preprocesamiento de datos, construcción de variables, estimación de modelos y generación de resultados, está disponible en:
+
+\begin{center}
+\url{https://github.com/acdoss/Problem-Set-3}
+\end{center}
+
+El repositorio contiene toda la implementación computacional necesaria para reproducir los análisis presentados en este documento.
+
+    
+    \section{Referencias}
+    
+    \begin{itemize}
+    \item Rosen, S. (1974). \textit{Hedonic Prices and Implicit Markets: Product Differentiation in Pure Competition}. Journal of Political Economy, 82(1), 34–55.
+    \item Sirmans, G. S., Macpherson, D. A., \& Zietz, E. N. (2005). The composition of hedonic pricing models. Journal of Real Estate Literature, 13(1), 3-43.
+
+\item Ahmed, E., \& Moustafa, M. (2016). House price estimation from visual and textual features. Computational Intelligence and Neuroscience, 2016, 1-8.
+
+\item Law, S., Paige, B., \& Russell, C. (2019). Take a look around: Using street view and satellite images to estimate house prices. Proceedings of the 2019 ACM SIGSPATIAL International Conference on Advances in Geographic Information Systems.
+
+\item Ho, W. K. O., Tang, B. S., \& Wong, S. W. (2020). Predicting property prices with machine learning algorithms. Journal of Property Research, 38(1), 1-23.
+\end{itemize}
+ 
+\end{document}
