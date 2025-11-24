@@ -1231,3 +1231,65 @@ tabla_spatial_test <- test_final %>%
 tabla_spatial_test
 
 
+
+# =============================================================================
+# GRÁFICO DE IMPORTANCIA DE VARIABLES (Usando XGBoost)
+# =============================================================================
+
+library(ggplot2)
+library(dplyr)
+library(xgboost)
+
+cat("=== GENERANDO GRÁFICO DE IMPORTANCIA (FUENTE: XGBOOST) ===\n")
+
+# 1. BUSCAR EL MODELO XGBOOST DENTRO DEL ENSAMBLE
+# Obtenemos los nombres de todos los modelos entrenados
+nombres_modelos <- names(sl_fit$learner_fits)
+
+# Filtramos el que diga "xgboost" (usamos el primero que encuentre)
+nombre_xgb <- nombres_modelos[grep("xgboost", nombres_modelos, ignore.case = TRUE)][1]
+
+if (is.na(nombre_xgb)) {
+  stop("❌ No se encontró ningún modelo XGBoost en el ensamble.")
+}
+
+cat(paste("   > Extrayendo importancia del modelo:", nombre_xgb, "\n"))
+
+# 2. EXTRAER EL OBJETO NATIVO
+modelo_xgb <- sl_fit$learner_fits[[nombre_xgb]]$fit_object
+
+# 3. CALCULAR IMPORTANCIA (GAIN)
+matriz_imp <- xgb.importance(model = modelo_xgb)
+
+
+# 4. PREPARAR DATOS (FILTRANDO LAT/LON)
+top_vars <- matriz_imp %>%
+  filter(!Feature %in% c("lat", "lon")) %>% # <--- AQUÍ QUITAMOS LAS COORDENADAS
+  arrange(desc(Gain)) %>%
+  head(15) %>% 
+  mutate(Feature = reorder(Feature, Gain)) 
+
+print(top_vars)
+
+# 5. GENERAR GRÁFICO (SIN TÍTULO EN EJE Y)
+p_imp <- ggplot(top_vars, aes(x = Gain, y = Feature)) +
+  geom_col(fill = "#2A9D8F", width = 0.7) +
+  labs(
+    title = "Variables más Influyentes en el Precio (Chapinero)",
+    subtitle = "(XGBoost)",
+    x = "Importancia Relativa",
+    y = NULL  # Sin etiqueta en el eje Y
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 14),
+    axis.text.y = element_text(size = 10, face = "bold"),
+    panel.grid.major.y = element_blank()
+  )
+
+print(p_imp)
+
+# 6. GUARDAR
+ggsave("top15_variables_importantes.png", p_imp, width = 10, height = 7, bg = "white")
+cat("✅ Gráfico guardado (sin lat/lon).\n")
+
